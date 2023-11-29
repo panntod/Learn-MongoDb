@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb')
+const { MongoClient, ObjectId } = require('mongodb')
 
 const uri = "mongodb://127.0.0.1:27017"
 const mongoClient = new MongoClient(uri)
@@ -32,3 +32,16 @@ const add_user = async (name, age) => {
 
 // add_user('jiang xie', 12)
 
+const update_user = async (id, name, age) => {
+    await mongoClient.connect()
+
+    const updateUser = await mongoClient
+    .db("crud_mongo")
+    .collection("user")
+    .updateOne({_id: new ObjectId(id)}, {$set :{ name, age}})
+
+    console.log(updateUser)
+    await mongoClient.close()
+}
+
+// update_user("6567cc0860b03c53588ba1c9", "sulthan", 21)
