@@ -45,3 +45,17 @@ const update_user = async (id, name, age) => {
 }
 
 // update_user("6567cc0860b03c53588ba1c9", "sulthan", 21)
+
+const delete_data = async (id) => {
+    await mongoClient.connect()
+
+    const deleteUser = await mongoClient
+    .db("crud_mongo")
+    .collection("user")
+    .deleteOne({ _id: new ObjectId(id)})
+
+    console.log(deleteUser)
+    await mongoClient.close()
+}
+
+// delete_data("6567c8e6b2904f6c20aec0f5")
